@@ -18,10 +18,10 @@ import javax.persistence.Id;
 public class UserSchema {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private String userId;
     private String userName;
-    private String userAddress;
-    private String userDescription;
+    private String userEmail;
+    private String userInfo;
 
 }
