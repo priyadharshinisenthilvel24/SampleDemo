@@ -10,6 +10,8 @@ public interface UserService {
     // Read operation
     List<UserSchema> getUserList();
 
+    UserSchema getByUserId(String userId);
+
     // Update operation
     UserSchema updateUser(UserSchema userSchema,
                                 String userId);
