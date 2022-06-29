@@ -16,10 +16,14 @@ import javax.persistence.*;
 public class UserSchema {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String userId;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="user_Id",nullable=false)
+    private Long userId;
+    @Column(name="user_Name")
     private String userName;
+    @Column(name="user_Email")
     private String userEmail;
+    @Column(name="user_Info")
     private String userInfo;
 
 }
