@@ -31,7 +31,7 @@ public class UserRoleController {
 
     @GetMapping("/users/{id}")
     @ResponseBody
-    public ResponseEntity<UserSchema> getByUserId(@PathVariable("id") String userId) {
+    public ResponseEntity<UserSchema> getByUserId(@PathVariable("id") Long userId) {
         try {
             UserSchema userSchema = userService.getByUserId(userId);
             return new ResponseEntity<>(userSchema, HttpStatus.OK);
@@ -44,16 +44,21 @@ public class UserRoleController {
     // Update userid
     @PutMapping("/users/{id}")
     public UserSchema updateUser(@RequestBody UserSchema userSchema,
-                     @PathVariable("id") String userId) {
-        return userService.updateUser(
-                userSchema, userId);
+                     @PathVariable("id") Long userId) {
+        return userService.updateUser(userSchema, userId);
+    }
+
+    //Patch update
+    @PatchMapping("/users/{id}")
+    public UserSchema patchUser(@RequestBody UserSchema userSchema,
+                                 @PathVariable("id") Long userId) {
+        return userService.updateUser(userSchema, userId);
     }
 
     // Delete user by id
     @DeleteMapping("/users/{id}")
-    public String deleteUserById(@PathVariable("id") String userId) {
-        userService.deleteUserById(
-                userId);
+    public String deleteUserById(@PathVariable("id") Long userId) {
+        userService.deleteUserById(userId);
         return "Deleted Successfully";
     }
 }

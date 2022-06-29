@@ -10,12 +10,12 @@ public interface UserService {
     // Read operation
     List<UserSchema> getUserList();
 
-    UserSchema getByUserId(String userId);
+    UserSchema getByUserId(Long userId);
 
     // Update operation
     UserSchema updateUser(UserSchema userSchema,
-                                String userId);
+                                Long userId);
 
     // Delete operation
-    void deleteUserById(String userId);
+    void deleteUserById(Long userId);
 }
