@@ -1,6 +1,7 @@
 package com.ideas2it.userandrolemodule.service;
 
 import com.ideas2it.userandrolemodule.entity.UserSchema;
+
 import java.util.List;
 
 public interface UserService {
