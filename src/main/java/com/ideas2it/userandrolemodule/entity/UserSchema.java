@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Data
@@ -18,13 +17,13 @@ public class UserSchema {
 
     @Id
     @GeneratedValue
-    @Column(name="user_id")
+    @Column(name="id")
     private Long userId;
-    @Column(name="user_name")
+    @Column(name="username")
     private String userName;
-    @Column(name="user_email")
+    @Column(name="useremail")
     private String userEmail;
-    @Column(name="user_info")
+    @Column(name="userinfo")
     private String userInfo;
     /*@Column(name = "roleId")
     private Long roleId;*/

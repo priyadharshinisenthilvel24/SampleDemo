@@ -22,7 +22,7 @@ public class RoleController {
         return roleService.saveRole(role);
     }
 
-    //get userid
+    //get roleid
     @GetMapping("/role")
     public List<Role> getUserList() {
         return roleService.getRoleList();
