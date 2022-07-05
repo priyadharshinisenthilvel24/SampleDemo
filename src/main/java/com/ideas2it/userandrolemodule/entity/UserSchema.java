@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "userschema")
+@Table(name = "userschema", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class UserSchema {
 
     @Id
@@ -25,7 +25,8 @@ public class UserSchema {
     private String userEmail;
     @Column(name="userinfo")
     private String userInfo;
-    /*@Column(name = "roleId")
-    private Long roleId;*/
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="roleid", referencedColumnName = "id")
+    private Role role;
 
 }
