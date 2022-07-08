@@ -5,23 +5,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
+@Builder
+@Table(name = "userschema")
 public class UserSchema {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
+    @Column(name="id")
     private Long userId;
+    @Column(name="username")
     private String userName;
-    private String userAddress;
-    private String userDescription;
+    @Column(name="useremail")
+    private String userEmail;
+    @Column(name="userinfo")
+    private String userInfo;
+    /*@Column(name = "roleId")
+    private Long roleId;*/
 
 }
