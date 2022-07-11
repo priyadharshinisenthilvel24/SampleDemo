@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: userandrolemodule   #service name, this will appear in eureka server homepage
+  cloud:
+    bootstrap:
+      enable: true
+  config:
+    import: optional:configserver:http://localhost:8889/
+
+
+management.endpoints.web.exposure.include: health,info,refresh

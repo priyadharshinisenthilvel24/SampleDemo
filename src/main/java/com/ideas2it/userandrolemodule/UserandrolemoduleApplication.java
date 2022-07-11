@@ -1,11 +1,14 @@
 package com.ideas2it.userandrolemodule;
 
-import com.ideas2it.userandrolemodule.controller.UserRoleController;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
+@EnableAutoConfiguration
+//@Profile(value={"local","test","uat","prod"})
 //@ComponentScan(basePackageClasses = UserRoleController.class)
 @ComponentScan({"com.ideas2it.userandrolemodule"})
 public class UserandrolemoduleApplication {

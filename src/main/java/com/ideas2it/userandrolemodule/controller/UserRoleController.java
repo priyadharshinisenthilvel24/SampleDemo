@@ -1,8 +1,11 @@
 package com.ideas2it.userandrolemodule.controller;
 
 import com.ideas2it.userandrolemodule.entity.UserSchema;
+import com.ideas2it.userandrolemodule.model.UserWithRole;
 import com.ideas2it.userandrolemodule.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
+@RefreshScope
 public class UserRoleController {
 
     @Autowired
@@ -59,5 +63,12 @@ public class UserRoleController {
     public String deleteUserById(@PathVariable("id") Long userId) {
         userService.deleteUserById(userId);
         return "Deleted Successfully";
+    }
+
+    @Value("${my.greeting: default value}")
+    private String greetingMessage;
+    @GetMapping("/greeting")
+    public String greetings() {
+        return "my.greeting: " + greetingMessage;
     }
 }

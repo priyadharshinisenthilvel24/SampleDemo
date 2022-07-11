@@ -1,0 +1,8 @@
+#spring:
+ # cloud:
+  #  config:
+   #   uri: http://localhost:8888
+      #uri: ${vcap.services.configserver.credentials.uri:http://user:password@localhost:8888}
+
+  #application:
+   # name: userandrolemodule

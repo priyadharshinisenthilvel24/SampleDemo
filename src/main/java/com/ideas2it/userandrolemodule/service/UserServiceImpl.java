@@ -1,6 +1,7 @@
 package com.ideas2it.userandrolemodule.service;
 
 import com.ideas2it.userandrolemodule.entity.UserSchema;
+import com.ideas2it.userandrolemodule.model.UserWithRole;
 import com.ideas2it.userandrolemodule.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,15 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    //save user with role
+    public UserSchema saveUserwithRole(UserSchema userSchema) {
+        //Long roleid = userSchema.getUserId();
+        //Role role = userRepository.findRole(roleid.intValue());
+        //userSchema.setRole(role);
+        UserWithRole userWithRole = new UserWithRole();
+        return userRepository.save(userSchema);
+    }
 
     // Save operation
     @Override
