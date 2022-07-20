@@ -1,5 +1,6 @@
 package com.ideas2it.userandrolemodule.service;
 
+import com.ideas2it.userandrolemodule.exception.GlobalExceptionHandler;
 import com.ideas2it.userandrolemodule.entity.UserSchema;
 import com.ideas2it.userandrolemodule.model.UserWithRole;
 import com.ideas2it.userandrolemodule.repository.UserRepository;
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    GlobalExceptionHandler globalExceptionHandler;
+
     //save user with role
     public UserSchema saveUserwithRole(UserSchema userSchema) {
         //Long roleid = userSchema.getUserId();
@@ -29,12 +33,26 @@ public class UserServiceImpl implements UserService{
     // Save operation
     @Override
     public UserSchema saveUser(UserSchema userSchema) {
+
+        try{
+            if(userSchema == null
+                    || userSchema.getUserName() == null
+                    || userSchema.getUserName().equals("")) {
+                //globalExceptionHandler.invalidField();
+                throw new NullPointerException();
+            }
+        }catch (NumberFormatException e) {
+            throw new IllegalArgumentException(e);
+        }
         return userRepository.save(userSchema);
+
+
     }
 
     // Read operation
     @Override
     public List<UserSchema> getUserList() {
+
         return (List<UserSchema>) userRepository.findAll();
     }
 

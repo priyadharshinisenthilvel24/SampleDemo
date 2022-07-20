@@ -1,6 +1,7 @@
 package com.ideas2it.userandrolemodule.service;
 
 import com.ideas2it.userandrolemodule.entity.UserSchema;
+import com.ideas2it.userandrolemodule.model.UserWithRole;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface UserService {
 
     // Delete operation
     void deleteUserById(Long userId);
+
+    //save user with Role
+    //UserWithRole saveUserwithRole(UserWithRole userWithRole);
 }

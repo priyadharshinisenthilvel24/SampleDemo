@@ -1,7 +1,7 @@
 package com.ideas2it.userandrolemodule.controller;
 
+import com.ideas2it.userandrolemodule.exception.GlobalExceptionHandler;
 import com.ideas2it.userandrolemodule.entity.UserSchema;
-import com.ideas2it.userandrolemodule.model.UserWithRole;
 import com.ideas2it.userandrolemodule.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,13 +15,21 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RefreshScope
-public class UserRoleController {
+public class UserRoleController extends GlobalExceptionHandler {
 
     @Autowired
     private UserService userService;
 
+    //save user with roleid
+    /*@PostMapping("/usersrole")
+    public UserWithRole saveUserWithRole(@RequestBody UserSchema userSchema) {
+        UserWithRole userWithRole = new UserWithRole();
+
+        return userService.saveUserwithRole(userWithRole);
+    }*/
+
     @PostMapping("/users")
-    public UserSchema saveUserSchema(
+    public UserSchema saveUserSchema (
             /*@Valid*/ @RequestBody UserSchema userSchema) {
         return userService.saveUser(userSchema);
     }
@@ -40,7 +48,8 @@ public class UserRoleController {
             return new ResponseEntity<>(userSchema, HttpStatus.OK);
         }
         catch (NoSuchElementException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NoSuchElementException();
         }
     }
 
