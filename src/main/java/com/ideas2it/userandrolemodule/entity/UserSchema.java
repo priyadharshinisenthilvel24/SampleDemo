@@ -12,21 +12,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "userschema", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class UserSchema {
 
     @Id
     @GeneratedValue
     @Column(name="id")
-    private Long userId;
-    @Column(name="username")
-    private String userName;
-    @Column(name="useremail")
-    private String userEmail;
-    @Column(name="userinfo")
-    private String userInfo;
+    private Long id;
+    @Column(name="name")
+    private String name;
+    @Column(name="email")
+    private String email;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="roleid", referencedColumnName = "id")
+    @JoinColumn(name ="role", referencedColumnName = "id")
     private Role role;
 
 }

@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class ErrorResponse {
 
-    int errorCode;
+    String errorCode;
     String timestamp;
     String errorMessage;
-    String errorDetails;
 }
