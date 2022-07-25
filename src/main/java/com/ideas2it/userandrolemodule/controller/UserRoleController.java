@@ -1,7 +1,8 @@
 package com.ideas2it.userandrolemodule.controller;
 
-import com.ideas2it.userandrolemodule.exception.GlobalExceptionHandler;
+
 import com.ideas2it.userandrolemodule.entity.UserSchema;
+import com.ideas2it.userandrolemodule.exception.GlobalExceptionHandler;
 import com.ideas2it.userandrolemodule.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

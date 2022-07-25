@@ -1,15 +1,16 @@
 package com.ideas2it.userandrolemodule.service;
 
-import com.ideas2it.userandrolemodule.exception.GlobalExceptionHandler;
 import com.ideas2it.userandrolemodule.entity.UserSchema;
+import com.ideas2it.userandrolemodule.exception.CustomException;
+import com.ideas2it.userandrolemodule.exception.GlobalExceptionHandler;
+import com.ideas2it.userandrolemodule.exception.ValidateRequest;
+import com.ideas2it.userandrolemodule.model.ErrorResponse;
 import com.ideas2it.userandrolemodule.model.UserWithRole;
 import com.ideas2it.userandrolemodule.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 //@Transactional
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     GlobalExceptionHandler globalExceptionHandler;
+
+    @Autowired
+    ValidateRequest validateRequest;
 
     //save user with role
     public UserSchema saveUserwithRole(UserSchema userSchema) {
@@ -35,13 +39,22 @@ public class UserServiceImpl implements UserService{
     public UserSchema saveUser(UserSchema userSchema) {
 
         try{
-            if(userSchema == null
-                    || userSchema.getUserName() == null
-                    || userSchema.getUserName().equals("")) {
-                //globalExceptionHandler.invalidField();
-                throw new NullPointerException();
+            if(userSchema != null){
+                if(userSchema.getName() == null){
+                    validateRequest.userNameNotFound();
+                }
+                if(userSchema.getName().equals("")){
+                    validateRequest.invalidUserName();
+                }
+                if(userSchema.getRole()== null){
+                    validateRequest.roleNotfound();
+                }
+                if(userSchema.getRole()!=null
+                        && !Arrays.asList("Admin","Common").contains(userSchema.getRole().getRole())){
+                    validateRequest.invalidRole();
+                }
             }
-        }catch (NumberFormatException e) {
+        }catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e);
         }
         return userRepository.save(userSchema);
@@ -63,9 +76,10 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public UserSchema getByUserId(Long userId) {
-        Optional<UserSchema> user = Optional.of(userRepository.findById(userId)
+            Optional<UserSchema> user = Optional.of(userRepository.findById(userId)
                 .get());
-        return user.get();
+            return user.get();
+
     }
 
     // Update operation
@@ -76,19 +90,14 @@ public class UserServiceImpl implements UserService{
                 = userRepository.findById(userId)
                 .get();
 
-        if (Objects.nonNull(userSchema.getUserName())
-                && !"".equalsIgnoreCase(userSchema.getUserName())) {
-            userDB.setUserName(userSchema.getUserName());
+        if (Objects.nonNull(userSchema.getName())
+                && !"".equalsIgnoreCase(userSchema.getName())) {
+            userDB.setName(userSchema.getName());
         }
 
-        if (Objects.nonNull(userSchema.getUserEmail())
-                && !"".equalsIgnoreCase(userSchema.getUserEmail())) {
-            userDB.setUserEmail(userSchema.getUserEmail());
-        }
-
-        if (Objects.nonNull(userSchema.getUserInfo())
-                && !"".equalsIgnoreCase(userSchema.getUserInfo())) {
-            userDB.setUserInfo(userSchema.getUserInfo());
+        if (Objects.nonNull(userSchema.getEmail())
+                && !"".equalsIgnoreCase(userSchema.getEmail())) {
+            userDB.setEmail(userSchema.getEmail());
         }
 
         return userRepository.save(userDB);
@@ -97,6 +106,8 @@ public class UserServiceImpl implements UserService{
     // Delete operation
     @Override
     public void deleteUserById(Long userId) {
-        userRepository.deleteById(userId);
+        UserSchema user = this.getByUserId(userId);
+        if(user!= null)
+            userRepository.deleteById(userId);
     }
 }

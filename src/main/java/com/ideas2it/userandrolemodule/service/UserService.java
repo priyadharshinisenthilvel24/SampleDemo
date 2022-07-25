@@ -1,7 +1,6 @@
 package com.ideas2it.userandrolemodule.service;
 
 import com.ideas2it.userandrolemodule.entity.UserSchema;
-import com.ideas2it.userandrolemodule.model.UserWithRole;
 
 import java.util.List;
 

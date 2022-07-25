@@ -18,32 +18,31 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private String timeStamp = String.valueOf(Instant.now());
 
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> customException(CustomException e){
+        return new ResponseEntity<ErrorResponse>(e.getErrorResponse(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ErrorResponse> noElementFound(NoSuchElementException e){
+    public ResponseEntity<ErrorResponse> noElementFound(){
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setTimestamp(timeStamp);
-        errorResponse.setErrorCode(400);
+        errorResponse.setErrorCode("U1001");
         errorResponse.setErrorMessage("UserID not Found");
-        errorResponse.setErrorDetails(e.getMessage());
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<ErrorResponse> invalidField(){
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setTimestamp(timeStamp);
-        errorResponse.setErrorCode(400);
-        errorResponse.setErrorMessage("Mandatory fields are missing");
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ErrorResponse> invalidField(CustomException e){
+        return new ResponseEntity<ErrorResponse>(e.getErrorResponse(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> invalidTypeError(IllegalArgumentException e){
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setTimestamp(timeStamp);
-        errorResponse.setErrorCode(400);
-        errorResponse.setErrorMessage("Invalid Data");
-        errorResponse.setErrorDetails(e.getMessage());
+        errorResponse.setErrorCode("U1006");
+        errorResponse.setErrorMessage("Invalid Request");
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 

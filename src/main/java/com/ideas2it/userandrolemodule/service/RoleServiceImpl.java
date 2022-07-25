@@ -52,9 +52,9 @@ public class RoleServiceImpl implements RoleService{
                 = roleRepository.findById(roleId)
                 .get();
 
-        if (Objects.nonNull(role.getRoleName())
-                && !"".equalsIgnoreCase(role.getRoleName())) {
-            roleDB.setRoleName(role.getRoleName());
+        if (Objects.nonNull(role.getRole())
+                && !"".equalsIgnoreCase(role.getRole())){
+            roleDB.setRole(role.getRole());
         }
 
         return roleRepository.save(roleDB);

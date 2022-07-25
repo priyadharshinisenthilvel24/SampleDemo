@@ -21,8 +21,8 @@ public class Role {
     @GeneratedValue
     @Column(name = "id",nullable=false)
     private int id;
-    @Column(name="rolename")
-    private String roleName;
+    @Column(name="role")
+    private String role;
 
     //@OneToMany(mappedBy = "role")
     //private List<UserSchema> listUsers = new ArrayList<>();
